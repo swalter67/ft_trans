@@ -1,0 +1,82 @@
+
+version: '3.5'
+
+services:
+
+# BACKEND
+  backend:
+    environment:
+      TZ: Europe/Paris
+    container_name: Backend-Transcendence
+    build: ./backend
+    ports:
+     - "3000:3000"
+     - "5555:5555"
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - backend
+    volumes:
+      - ./backend/app:/app
+
+# FRONTEND
+  frontend:
+    container_name: Frontend-Transcendence
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/app:/app
+
+# DB
+  db:
+    container_name: db
+    image: postgres
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    env_file:
+      - "./postgres/.env"
+    environment:
+      TZ: Europe/Paris
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+    restart: always
+
+networks:
+  backend:
+    driver: bridge
+    name: n_backend
+  frontend:
+    driver: bridge
+    name: n_frontend
+
+#volumes:
+#  database:
+#    name: database
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: postgres/data
+#  front:
+#    name: front
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: frontend/app
+#  back:
+#    name: back
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: backend/app
