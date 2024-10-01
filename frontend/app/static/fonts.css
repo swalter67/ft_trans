@@ -1,0 +1,19 @@
+	@font-face {
+		font-family: 'neon';
+		src: url('fonts/NEONLEDLight.otf');
+	}
+
+	@font-face {
+		font-family: 'retro';
+		src: url('fonts/Retrolight.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'franchise';
+		src: url('fonts/Franchise.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'neon2';
+		src: url('fonts/hellodenverdisplaybold_v1.6.tff');
+	}
